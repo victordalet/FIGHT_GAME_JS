@@ -1,5 +1,7 @@
 class Game {
     constructor() {
+        this.audio = new Audio('assets/muse.mp3');
+        this.audio_win = new Audio('assets/win.mp3');
         document.documentElement.requestFullscreen();
         document.body.style.background = "url('assets/bg.png')";
         document.body.style.backgroundSize = 'cover';
@@ -29,8 +31,12 @@ class Game {
             this.player.set_run(this.run);
             this.enemy.set_run(this.run);
             this.text_in_start_button.innerHTML = "RESTART";
-            if (this.enemy.hp === 0) {
+            if (this.enemy.hp <= 0) {
                 this.text_history.innerHTML = this.data_history[4];
+                this.audio.pause();
+                this.audio_win.play();
+                this.container_light.style.top = this.player.y.toString()-75 + 'px';
+                this.container_light.style.left = this.player.x.toString()-100    + 'px';
             }
         }
     }
@@ -39,6 +45,7 @@ class Game {
         setInterval(()=> {
             if (this.enemy.isCollide(this.player,this.enemy)) {
                 this.enemy.loos();
+                this.player.win_hp();
             }
         },this.player.time_to_action)
     }
@@ -93,6 +100,7 @@ class Game {
         this.start_button.onclick = () => {
             switch (this.step_story) {
                 case 1:
+                    this.audio.play()
                     this.text_history.innerHTML = this.data_history[1];
                     this.step_story = 2;
                     this.container_light.style.left = this.enemy.x.toString()-100 + 'px';

@@ -2,9 +2,9 @@ class Projectile {
     constructor(run,time) {
         this._run = run;
         this._x = screen.width -200;
-        this._y = screen.height - (200 + parseInt(Math.random() * 100));
-        this._width = 50;
-        this._height = 30;
+        this._y = screen.height - 340;
+        this._width = 40;
+        this._height = 20;
         this.speed = 2;
         this.time_to_action = 200 * time;
         this.create_projectile();
@@ -66,6 +66,6 @@ class Projectile {
     go_to_base() {
         this.projectile_rect.style.background = "url('assets/ob"+parseInt(Math.random() * 7).toString() +".png')";
         this._x = screen.width -200;
-        this._y = screen.height - (200 + parseInt(Math.random() * 100));
+        this._y = screen.height - 340;
     }
 }

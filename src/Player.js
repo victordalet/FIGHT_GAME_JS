@@ -1,22 +1,23 @@
 class Player {
     constructor(run) {
         this._x = 100;
-        this._y = screen.height - 350;
+        this._y = screen.height - 325;
         this._height = 150;
         this._width = 100 ;
-        this._hp = 3;
+        this._hp = 10;
         this.speed = 20;
         this._run = run;
         this.can_loos = true;
         this.speed_squatting = 50;
-        this.time_to_action = 500;
+        this.time_to_action = 700;
         this.bar_hp = new Bar("#0F0",this._hp,50);
         this.create_player();
         this.keyboard_event();
         this.can_jump = true;
         this.can_squatting = true;
-        this.speed_jump = 150;
+        this.speed_jump = 300;
         this.bonus = new Bonus(run);
+        this.sound_jump = new Audio('assets/jump.mp3');
     }
 
     /*-------------------------GETTER---------------------------*/
@@ -66,7 +67,7 @@ class Player {
     restart_game() {
         this._x = 100;
         this.player_rect.style.left = this._x.toString() + 'px';
-        this._hp = 3;
+        this._hp = 10;
         this.bar_hp.loos(this._hp);
         this.bonus.restart();
     }
@@ -92,12 +93,16 @@ class Player {
             if (this._run === true) {
                 switch (event.key) {
                     case "d":
-                        this._x += this.speed;
-                        document.querySelector(".player").style.left = this._x.toString() + 'px';
+                        if (this._x < screen.width) {
+                            this._x += this.speed;
+                            document.querySelector(".player").style.left = this._x.toString() + 'px';
+                        }
                         break;
                     case "q":
-                        this._x -= this.speed;
-                        document.querySelector(".player").style.left = this._x.toString() + 'px';
+                        if (this._x > 0) {
+                            this._x -= this.speed;
+                            document.querySelector(".player").style.left = this._x.toString() + 'px';
+                        }
                         break;
                     case "s":
                         if (this.can_squatting === true) {
@@ -117,6 +122,7 @@ class Player {
                         break;
                     case " ":
                         if (this.can_jump === true) {
+                            this.sound_jump.play();
                             this._y -= this.speed_jump;
                             document.querySelector(".player").style.top = this._y.toString() + 'px';
                             this.can_jump = false;

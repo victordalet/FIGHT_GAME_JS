@@ -6,7 +6,7 @@ class Enemy {
         this._y = screen.height - 350;
         this._width = 100;
         this._height = 150;
-        this._hp = 3;
+        this._hp = 10;
         this.nb_projectile = nb_proj;
         this.create_enemy();
         this.bar_hp = new Bar("#F00",this._hp,(screen.width -400));
@@ -52,8 +52,11 @@ class Enemy {
     }
 
     restart_game() {
-        this._hp = 3;
+        this._hp = 10;
         this.bar_hp.loos(this._hp);
+        for (let i = 0 ; i < this.nb_projectile ; i++) {
+            this.array_of_projectile[i].go_to_base();
+        }
     }
 
     create_enemy() {
@@ -89,7 +92,7 @@ class Enemy {
     }
 
     loos() {
-        this._hp--;
+        this._hp -= (this._hp !== 4) ? 3 : 4;
         this.bar_hp.loos(this._hp);
         this.player.reset_position();
     }

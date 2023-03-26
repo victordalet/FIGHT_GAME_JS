@@ -2,7 +2,7 @@ class Bar {
     constructor(color,hp,left) {
         this.bar = document.createElement('div');
         this.bar.style.height = '50px';
-        this.bar.style.width = (100 * hp ).toString() +'px';
+        this.bar.style.width = (30 * hp ).toString() +'px';
         this.bar.style.background = color;
         this.bar.style.overflow = 'hidden';
         this.bar.style.position = 'relative';
@@ -26,7 +26,7 @@ class Bar {
     }
 
     loos(hp) {
-        this.bar.style.width = (100 * hp + 50).toString() +'px';
+        this.bar.style.width = (30 * hp + 50).toString() +'px';
     }
 
 }
